@@ -722,7 +722,7 @@ class Plugin(View):
     def dispatch(self, request, path=None, slug=None, **kwargs):
         kwargs["path"] = path
         for plugin in list(plugin_registry.get_plugins().values()):
-            if getattr(plugin, "slug", None) == slug:
+            if getattr(plugin, "slug", None) == slug and plugin.article_view:
                 return plugin.article_view(request, **kwargs)
         raise Http404()
 
